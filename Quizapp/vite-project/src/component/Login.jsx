@@ -25,7 +25,7 @@ const Login = () => {
         if (message === null) {
             if (isSignUp) {
                 // signUp(emailRef.current.value, passwordRef.current.value).then((res) => setErrorMessage(res));
-                signUp(emailRef.current.value, passwordRef.current.value).then(() => Navigate('/'))
+                signUp(emailRef.current.value, passwordRef.current.value).then(() => toggleSignUp());
             } else {
                 signIn(emailRef.current.value, passwordRef.current.value).then((user) => {setUser(user.email) ; Navigate('/dashboard')});
             }
