@@ -16,13 +16,17 @@ mongoose.connect('mongodb://localhost:27017/adaptive-quiz').then(() => console.l
 
 // Routes
 app.get('/api/questions', async (req, res) => {
+  const difficulty = parseInt(req.query.difficulty) || 1;
+  const limit = parseInt(req.query.limit) || 20;
+  
   try {
-    const questions = await Question.find();
-    res.json(questions);
+    const questions = await Question.find({ difficulty }).limit(limit);
+    res.status(200).json(questions);
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).json({ message: error.message });
   }
-});
+}
+);
 
 app.post('/api/submit-answer', async (req, res) => {
   const { questionId, selectedOption } = req.body;
